@@ -61,7 +61,7 @@ class alimama:
 
 #example
 ali = alimama()
-if ali.login('cashlee96347@gmail.com','cash76104756258'):
+if ali.login('',''):
    url = ali.getUrl('http://item.taobao.com/item.htm?spm=a1z10.1.w4004-1205618817.6.Evkf6O&id=19322457214')
    if url:
        print url
