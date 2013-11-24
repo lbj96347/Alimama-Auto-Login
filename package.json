@@ -1,0 +1,26 @@
+{
+  "name": "alimama-auto-login",
+  "version": "0.1.0",
+  "description": "Login Alimama with Javascript",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "keywords": [
+    "alimama",
+    "node.js",
+    "auto",
+    "login"
+  ],
+  "dependencies" : {
+    "node-jquery" : "" , 
+    "MD5" : "" , 
+    "superagent" : "", 
+    "urlcode-json" : "" , 
+    "node-promise" : "" , 
+    "commander" : ""
+  },
+  "author": "CashLee",
+  "license": "BSD"
+}

@@ -1,0 +1,4 @@
+exports.info = {
+  'email' : '' ,
+  'password' : '' 
+}
