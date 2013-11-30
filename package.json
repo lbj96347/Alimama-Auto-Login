@@ -1,12 +1,12 @@
 {
   "name": "alimama-auto-login",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Login Alimama with Javascript",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": "",
+  "repository": "git@github.com:lbj96347/Alimama-Auto-Login.git",
   "keywords": [
     "alimama",
     "node.js",
