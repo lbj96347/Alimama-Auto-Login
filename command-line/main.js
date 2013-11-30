@@ -6,44 +6,11 @@
 
 var program = require('commander');
 var md5 = require('MD5');
-
-program
-  .command('name <cmd>')
-  .description('This is the name you type')
-  .action(function (cmd){
-    console.log( 'name string is ' ,  cmd );
-
-    /*
-    var loginData = {
-      'logname' : '' ,
-      'originallogpasswd' : '',
-      'logpasswd' : '' ,
-      'proxy' : '' ,
-      'redirect' : '' ,
-      'style' : '' 
-    }
-    */
-
-    var loginData = {
-      'name' : 'cashlee' ,
-      'lang-1' : 'cantonese' ,  
-      'lang-2' : '广东话'
-    };
-
-    var out = new Array();
-    for(key in loginData) {
-      out.push(key + '=' + loginData[key]);
-    }
-    console.log( 'this is out ' , encodeURIComponent( out.join('&') ) );
-    console.log('This is the string what you type "%s"', cmd );
-  });
-
+var usermsg = require('../config');
+var app = require('../app');
 
 program
   .version('0.1.0')
-  .option('-f, --foo', 'enable some foo')
-  .option('-b, --bar', 'enable some bar')
-  .option('-B, --baz', 'enable some baz');
 
 // must be before .parse() since
 // node's emit() is immediate
@@ -51,10 +18,21 @@ program
 program.on('--help', function(){
   console.log('  Examples:');
   console.log('');
-  console.log('    $ custom-help --help');
-  console.log('    $ custom-help -h');
+  console.log('    $ node app login');
+  console.log('    >> before this you need to input your username and password in config.js');
   console.log('');
 });
+
+program.on('login',function (){
+  console.log('Begin auto login ... ');
+  if( usermsg.info.email == '' || usermsg.info.password == '' ){
+    console.log('Please input your email or password!!');
+    return false;
+  }else{
+    app.auto_login();
+  }
+});
+
 
 exports.init = function (){
 

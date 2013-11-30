@@ -19,7 +19,6 @@ var requestSetting = {
   } 
 }
 
-
 loginData = {
   'logname' :  USER.info.email ,
   'originallogpasswd' : USER.info.password,
@@ -60,6 +59,7 @@ var loginAlimama = function ( paramData ){
       };
       console.log( 'login success' );
       fiber.run();
+      return true;
     });
   Fiber.yield();
 };
@@ -78,6 +78,7 @@ var requestToken = function (){
       console.log('request token success : ' , data );
       paramData = data;
       fiber.run();
+      return data;
     });
   Fiber.yield();
 };
@@ -92,7 +93,7 @@ var requestToken = function (){
  *
  */
 
-var getUrl = function (){
+var getUrl = function (example_url){
   var fiber = Fiber.current;
   var urlData = urlcodejson.decode( example_url.split('?')[1] , false );
   var item_id = urlData.id;
@@ -110,14 +111,77 @@ var getUrl = function (){
       var taobaoke = results[1];
       console.log( '获得的淘宝客链接是： ' , results[1] );
       fiber.run();
+      return results[1];
     });
   Fiber.yield();
 };
 
-Fiber(function (){
-  requestToken();
-  loginAlimama( paramData );
-  getUrl();
-}).run();
+exports.example_url = function (url_string){
+  example_url = url_string; 
+}
 
-//commandline.init();
+
+/*
+ *
+ * Author : CashLee
+ * api : requestToken 
+ * @param : none
+ * callback : data = {
+ *  token : xxxx ,
+ *  cookies : xxx
+ * }
+ *
+ */
+
+exports.request_token = function (){
+  requestToken();
+}
+
+/*
+ *
+ * Author : CashLee
+ * api : loginAlimama()
+ * @param : paramData = {
+ *  token : xxxx ,
+ *  cookies : xxx
+ * }
+ * callback : true or false 
+ *
+ */
+
+exports.login_alimama = function (paramData){
+  loginAlimama(paramData)
+}
+
+/*
+ *
+ * Author : CashLee
+ * api : getUrl 
+ * @param : none
+ * callback : https://.../
+ * 
+ */
+
+exports.get_url = function (example_url){
+  getUrl(example_url);
+}
+
+
+/*
+ *
+ * Author : CashLee
+ * api : auto login example 
+ * @param : none 
+ * callback : https://.../
+ *
+ */
+
+exports.auto_convert = function (){
+  Fiber(function (){
+    requestToken();
+    loginAlimama( paramData );
+    getUrl(example_url);
+  }).run();
+}
+
+commandline.init();
