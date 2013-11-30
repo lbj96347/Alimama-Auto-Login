@@ -18,7 +18,8 @@
     "MD5" : "" , 
     "superagent" : "", 
     "urlcode-json" : "" , 
-    "node-promise" : "" , 
+    "node-promise" : "", 
+    "fibers" : "" , 
     "commander" : ""
   },
   "author": "CashLee",

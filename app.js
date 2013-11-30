@@ -1,4 +1,4 @@
-var loginData , sendData , cookie = '' ; 
+var paramData, loginData , sendData , cookie = '' ; 
 require('node-jquery');
 var commandline = require('./command-line/main');
 var urlcodejson = require('urlcode-json');
@@ -7,6 +7,7 @@ var md5 = require('MD5');
 var Promise = require('node-promise').Promise;
 var promise = new Promise();
 var USER = require('./config');
+var Fiber = require('fibers');
 
 var example_url = 'http://item.taobao.com/item.htm?spm=a1z10.1.w4004-4691356287.3.zn8QiS&id=36105974323';
 
@@ -30,7 +31,12 @@ loginData = {
 }
 
 
-var loginAlimama = function ( sendData ,cookies ){
+var loginAlimama = function ( paramData ){
+  var fiber = Fiber.current;
+  var cookies = paramData.cookies;
+  loginData['_tb_token_'] = paramData.token;
+  sendData = loginData;
+  //sendData ,cookies
   if (cookies) {
     _ref = cookies;
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -49,12 +55,17 @@ var loginAlimama = function ( sendData ,cookies ){
     .send( sendData )
     .redirects(0)
     .end( function ( error , res ){
+      if( error ){
+        console.log('login alimama error :' , error );
+      };
       console.log( 'login success' );
-      getUrl();
+      fiber.run();
     });
+  Fiber.yield();
 };
 
 var requestToken = function (){
+  var fiber = Fiber.current;
   request
     .get('http://www.alimama.com/member/minilogin.htm')
     .end( function ( error , res ){
@@ -64,18 +75,13 @@ var requestToken = function (){
         "token": token ,
         "cookies" : cookies ,
       };
-      promise.resolve( data );
+      console.log('request token success : ' , data );
+      paramData = data;
+      fiber.run();
     });
+  Fiber.yield();
 };
 
-promise.then( function ( data ){
-  loginData['_tb_token_'] = data.token;
-  sendData = loginData;//urlcodejson.encode(loginData,true);
-  console.log( sendData )
-  loginAlimama( sendData , data.cookies );
-},function ( error ){
-  console.log('error occur');
-});
 
 
 /*
@@ -87,6 +93,7 @@ promise.then( function ( data ){
  */
 
 var getUrl = function (){
+  var fiber = Fiber.current;
   var urlData = urlcodejson.decode( example_url.split('?')[1] , false );
   var item_id = urlData.id;
   request
@@ -102,10 +109,15 @@ var getUrl = function (){
       var results = res.text.match( pattern );
       var taobaoke = results[1];
       console.log( '获得的淘宝客链接是： ' , results[1] );
+      fiber.run();
     });
+  Fiber.yield();
 };
 
-
-requestToken();
+Fiber(function (){
+  requestToken();
+  loginAlimama( paramData );
+  getUrl();
+}).run();
 
 //commandline.init();
