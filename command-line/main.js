@@ -29,7 +29,7 @@ program.on('login',function (){
     console.log('Please input your email or password!!');
     return false;
   }else{
-    app.auto_login();
+    app.auto_convert();
   }
 });
 
