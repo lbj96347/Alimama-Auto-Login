@@ -116,15 +116,14 @@ var getUrl = function (example_url){
   Fiber.yield();
 };
 
-exports.example_url = function (url_string){
+exports.goodsurl = function (url_string){
   example_url = url_string; 
 }
 
 exports.userinfo - function ( username , password ){
-  USER.info = {
-    'email' : username ,
-    'password' : password 
-  };
+  loginData['logname'] = username; 
+  loginData['originallogpasswd'] = password;
+  loginData['logpasswd'] = md5(password); 
 }
 
 
