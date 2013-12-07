@@ -116,6 +116,7 @@ var getUrl = function (example_url){
         return results[1];
       }catch(err){
         console.log('javascript error ' ,  err );
+        fiber.run();
         return results;
       }
     });
