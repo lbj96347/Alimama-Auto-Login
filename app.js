@@ -126,7 +126,7 @@ exports.goodsurl = function (url_string){
   example_url = url_string; 
 }
 
-exports.userinfo - function ( username , password ){
+exports.userinfo = function ( username , password ){
   loginData['logname'] = username; 
   loginData['originallogpasswd'] = password;
   loginData['logpasswd'] = md5(password); 
