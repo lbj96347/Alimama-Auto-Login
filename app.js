@@ -110,6 +110,7 @@ var getUrl = function (example_url){
       var results = res.text.match( pattern );
       try {
         var taobaoke = results[1];
+        exports.taobaokeurl = results[1];
         console.log( '获得的淘宝客链接是： ' , results[1] );
         fiber.run();
         return results[1];
