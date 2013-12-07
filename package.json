@@ -14,7 +14,7 @@
     "login"
   ],
   "dependencies" : {
-    "node-jquery" : "" , 
+    "jquery" : "" , 
     "MD5" : "" , 
     "superagent" : "", 
     "urlcode-json" : "" , 

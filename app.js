@@ -1,5 +1,5 @@
 var paramData, loginData , sendData , cookie = '' ; 
-require('node-jquery');
+var $ = require('jquery');
 var commandline = require('./command-line/main');
 var urlcodejson = require('urlcode-json');
 var request = require('superagent');
