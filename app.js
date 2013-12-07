@@ -108,10 +108,15 @@ var getUrl = function (example_url){
       //console.log( 'final page content with url is : ' , res.text );
       var pattern = 'var clickUrl = \'([^\']+)';
       var results = res.text.match( pattern );
-      var taobaoke = results[1];
-      console.log( '获得的淘宝客链接是： ' , results[1] );
-      fiber.run();
-      return results[1];
+      try {
+        var taobaoke = results[1];
+        console.log( '获得的淘宝客链接是： ' , results[1] );
+        fiber.run();
+        return results[1];
+      }catch(err){
+        console.log('javascript error ' ,  err );
+        return results;
+      }
     });
   Fiber.yield();
 };
@@ -188,6 +193,16 @@ exports.auto_convert = function (){
     loginAlimama( paramData );
     getUrl(example_url);
   }).run();
+}
+
+exports.auto_login = function (){
+  var auto_fiber = Fiber.current;
+  Fiber(function (){
+    requestToken();
+    loginAlimama( paramData );
+    auto_fiber.run();
+  }).run();
+  Fiber.yield();
 }
 
 commandline.init();
