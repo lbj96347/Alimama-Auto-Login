@@ -1,6 +1,6 @@
 {
   "name": "alimama-auto-login",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Login Alimama with Javascript",
   "main": "app.js",
   "scripts": {

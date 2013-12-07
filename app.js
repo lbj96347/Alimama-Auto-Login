@@ -6,10 +6,10 @@ var request = require('superagent');
 var md5 = require('MD5');
 var Promise = require('node-promise').Promise;
 var promise = new Promise();
-var USER = require('./config');
 var Fiber = require('fibers');
+var USER = require('./config');
 
-var example_url = 'http://item.taobao.com/item.htm?spm=a1z10.1.w4004-4691356287.3.zn8QiS&id=36105974323';
+var example_url = 'http://item.taobao.com/item.html?id=17662161787';
 
 var requestSetting = {
   "url" : "https://www.alimama.com/member/minilogin_act.htm" ,
@@ -118,6 +118,13 @@ var getUrl = function (example_url){
 
 exports.example_url = function (url_string){
   example_url = url_string; 
+}
+
+exports.userinfo - function ( username , password ){
+  USER.info = {
+    'email' : username ,
+    'password' : password 
+  };
 }
 
 

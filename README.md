@@ -27,7 +27,9 @@ USAGE
 
     var alimama = require('alimama-auto-login');
 
-    alimama.example_url = 'http://item.taobao.com/item.htm?spm=a1z10.1.w4004-4691356287.3.zn8QiS&id=36105974323'; 
+    alimama.example_url('http://item.taobao.com/item.htm?spm=a1z10.1.w4004-4691356287.3.zn8QiS&id=36105974323'); 
+
+    alimama.userinfo( 'your_email' , 'your_password' );
 
     var convert_url = alimama.auto_convert(); 
 
